@@ -7,11 +7,10 @@ Created on Thu May 30 12:36:15 2019
 
 import json
 import pandas as pd
-import requests
 from PIL import Image, ImageDraw
-import numpy
 import urllib.request
 import cv2
+import os
 
 with open('export.json') as json_file:
     data = json.load(json_file)
@@ -24,6 +23,7 @@ df = pd.DataFrame(columns = columns )
 #Dataset = data[0]["Dataset Name"]
 #geometry = data[0]["Label"]["Egg"][0]
 #######################
+wrkingdir = os.getcwd()
 
 for x in data:
     listofpoints = []
@@ -36,7 +36,7 @@ for x in data:
             ycord = beta['y']
             tuplecord = (xcord,ycord)
             listofpoints.append(tuplecord)
-    mask = x['Masks']
+    mask = x['Masks']['Egg']
     df = df.append({"External_ID" : External_ID,
                             "Dataset" : Dataset,
                             "geometry" : geometry,
@@ -45,19 +45,47 @@ for x in data:
     
 ##### Test Code ######
 
-testimg = r'C:\Users\jplineb\Desktop\chicken project\Clutch1_D12\IMG_0004.JPG'
-#cords = df["cords"][0]
+#testimg = r'C:\Users\jplineb\Desktop\chicken project\Watson_ChickenProj_JP\data\Clutch1_D12\IMG_0004.JPG'
+##cords = df["cords"][0]
+##
+##img = Image.new('L', (5328, 4000))
+##ImageDraw.Draw(img).polygon(cords, outline = 1, fill = 1)
+##mask = numpy.array(img)
+##
+##
+##img.paste(Image.open(testimg), (0,0), mask)
 #
-#img = Image.new('L', (5328, 4000))
-#ImageDraw.Draw(img).polygon(cords, outline = 1, fill = 1)
-#mask = numpy.array(img)
+#urllib.request.urlretrieve('https://faas-gateway.labelbox.com/function/mask-exporter?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsYWJlbElkIjoiY2p3OXBhZTVuY2x4ejA3OTU2dDAzM3pjMyIsImNsYXNzTmFtZSI6IkVnZyIsImlhdCI6MTU1OTIzNDA2OSwiZXhwIjoxNzE2OTE0MDY5fQ.kEEqhUmZCipP-sdwiSLIwlIUhWnshIFCDLKHSF1WbPc', '1.png')
+#img = cv2.imread(testimg)
+#mask = cv2.imread('1.png', 0)
+#res = cv2.bitwise_and(img,img, mask = mask)
 #
-#
-#img.paste(Image.open(testimg), (0,0), mask)
+#cv2.imwrite('10.png', res)
+##########################
 
-urllib.request.urlretrieve('https://faas-gateway.labelbox.com/function/mask-exporter?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsYWJlbElkIjoiY2p3OXBhZTVuY2x4ejA3OTU2dDAzM3pjMyIsImNsYXNzTmFtZSI6IkVnZyIsImlhdCI6MTU1OTIzNDA2OSwiZXhwIjoxNzE2OTE0MDY5fQ.kEEqhUmZCipP-sdwiSLIwlIUhWnshIFCDLKHSF1WbPc', '1.png')
-img = cv2.imread(testimg)
-mask = cv2.imread('1.png', 0)
-res = cv2.bitwise_and(img,img, mask = mask)
+#filenamesNmasks = []
+#
+#def filemasksmaker(filename, day_clutch, masklink):
+#    filename = "./" + str(day_clutch) + "/" + str(filename)
+#    masklink = masklink
+#    charlie = [filename, masklink]
+#    return charlie;
+#
+#filenamesNmasks.append(df.apply(lambda z: filemasksmaker(z.External_ID, z.Dataset, z.mask,axis = 1).tolist())
 
-cv2.imwrite('10.png', res)
+filenames = df["External_ID"].tolist()
+datasetnames = df["Dataset"].tolist()
+masklinks = df["mask"].tolist()
+fileandpath = []
+for x, y in zip(filenames, datasetnames):
+    filename = "./" + str(y) + "/" + str(x)
+    fileandpath.append(filename)
+
+for x, y in zip(fileandpath, masklinks):
+    newpath = (wrkingdir + '/masks/' + x.split('/')[1])
+    if not os.path.exists(newpath):
+        os.makedirs(newpath)
+    urllib.request.urlretrieve(y,newpath)
+
+
+    
