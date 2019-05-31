@@ -11,6 +11,7 @@ from PIL import Image, ImageDraw
 import urllib.request
 import cv2
 import os
+import shutil
 
 with open('export.json') as json_file:
     data = json.load(json_file)
@@ -81,11 +82,17 @@ for x, y in zip(filenames, datasetnames):
     filename = "./" + str(y) + "/" + str(x)
     fileandpath.append(filename)
 
-for x, y in zip(fileandpath, masklinks):
+for x, y, z in zip(fileandpath, masklinks, filenames):
     newpath = (wrkingdir + '/masks/' + x.split('/')[1])
+    newpathandfile = (wrkingdir + '/masks/' + x.split('./')[1])
     if not os.path.exists(newpath):
         os.makedirs(newpath)
-    urllib.request.urlretrieve(y,newpath)
-
+    urllib.request.urlretrieve(y, z)
+    img = cv2.imread(x)
+    mask = cv2.imread(z, 0)
+    res = cv2.bitwise_and(img, img, mask = mask)
+    cv2.imwrite(z, res)
+    shutil.copy(z, newpath)
+    
 
     
