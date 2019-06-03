@@ -15,7 +15,7 @@ wrkingdir = os.getcwd()
 img = cv2.pyrDown(cv2.imread("egg30.jpg", cv2.IMREAD_UNCHANGED))
 
 ret, threshed_img = cv2.threshold(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY),
-                                  0, 255, cv2.THRESH_BINARY) #sets the image to gray scale (thresshold was white vs black here)
+                                  0, 255, cv2.THRESH_BINARY) #sets the image to gray scale (threshold was white vs black here)
 
 # find contours and get the external one
 contours, hier = cv2.findContours(threshed_img,  cv2.RETR_EXTERNAL,
@@ -32,7 +32,7 @@ for c in contours: #finds the contour with the largest area
 
 for c in cnt:
     x,y,w,h = cv2.boundingRect(cnt) # calculates the bounding rectangle
-    cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),2) #Drawis the bounding rectangle
+    cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),2) #Draws the bounding rectangle
 
 img2 = cv2.resize(img, (1438, 1080))
 cv2.imshow("contours", img2)

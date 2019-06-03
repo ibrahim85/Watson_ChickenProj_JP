@@ -24,8 +24,11 @@ df = pd.DataFrame(columns = columns )
 #Dataset = data[0]["Dataset Name"]
 #geometry = data[0]["Label"]["Egg"][0]
 #######################
+
 wrkingdir = os.getcwd()
 
+### JSON Extracter ###
+# This code grabs data from the json output and organizes it into a nice dataframe
 for x in data:
     listofpoints = []
     External_ID = x["External ID"]
@@ -73,7 +76,9 @@ for x in data:
 #    return charlie;
 #
 #filenamesNmasks.append(df.apply(lambda z: filemasksmaker(z.External_ID, z.Dataset, z.mask,axis = 1).tolist())
+##########################
 
+##### Mask getter and applier #####
 filenames = df["External_ID"].tolist()
 datasetnames = df["Dataset"].tolist()
 masklinks = df["mask"].tolist()
@@ -88,10 +93,10 @@ for x, y, z in zip(fileandpath, masklinks, filenames):
     newpathandfile = (wrkingdir + '/masks/' + x.split('./')[1])
     if not os.path.exists(newpath):
         os.makedirs(newpath)
-    if not os.path.isfile(newpathandfile):
+    if not os.path.isfile(newpathandfile): # checks if mask has already been created
         print("Creating file")
         try:
-            urllib.request.urlretrieve(y, z)
+            urllib.request.urlretrieve(y, z) # access the url to download the file
         except:
             print("An error has occured on image " + z)
         else:

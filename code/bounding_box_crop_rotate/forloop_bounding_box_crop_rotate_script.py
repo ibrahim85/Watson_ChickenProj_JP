@@ -14,7 +14,7 @@ maskroot = './masks'
 def cropdamask(fileloc):
     img = cv2.pyrDown(cv2.imread(fileloc, cv2.IMREAD_UNCHANGED))
     ret, threshed_img = cv2.threshold(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY),
-                                  0, 255, cv2.THRESH_BINARY)
+                                  0, 255, cv2.THRESH_BINARY) #Converts Image to black and white
     # find contours and get the external one
     contours, hier = cv2.findContours(threshed_img,  cv2.RETR_EXTERNAL,
                 cv2.CHAIN_APPROX_SIMPLE)
@@ -28,13 +28,13 @@ def cropdamask(fileloc):
             print(area)
     for c in cnt:
         x,y,w,h = cv2.boundingRect(cnt) # calculates the bounding rectangle
-        cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),2) #Drawis the bounding rectangle
+        cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),2) #Draws the bounding rectangle
     roi = img[y:y+h, x:x+w] #sets the region of interest to the bounding rectangle
     cv2.imwrite(fileloc, roi) #crops inputed image
 
 
 
-for root, dirs, files in os.walk(maskroot):
+for root, dirs, files in os.walk(maskroot): #lists all files in directory
     for file in files:
         fileloc = os.path.join(root, file)
         cropdamask(fileloc)
