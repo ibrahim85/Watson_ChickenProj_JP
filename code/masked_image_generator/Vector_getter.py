@@ -99,6 +99,7 @@ for x, y, z in zip(fileandpath, masklinks, filenames):
             urllib.request.urlretrieve(y, z) # access the url to download the file
         except:
             print("An error has occured on image " + z)
+			break
         else:
             img = cv2.imread(x)
             mask = cv2.imread(z, 0)
