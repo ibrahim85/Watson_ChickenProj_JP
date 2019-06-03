@@ -78,6 +78,7 @@ filenames = df["External_ID"].tolist()
 datasetnames = df["Dataset"].tolist()
 masklinks = df["mask"].tolist()
 fileandpath = []
+
 for x, y in zip(filenames, datasetnames):
     filename = "./" + str(y) + "/" + str(x)
     fileandpath.append(filename)
@@ -87,12 +88,18 @@ for x, y, z in zip(fileandpath, masklinks, filenames):
     newpathandfile = (wrkingdir + '/masks/' + x.split('./')[1])
     if not os.path.exists(newpath):
         os.makedirs(newpath)
-    urllib.request.urlretrieve(y, z)
-    img = cv2.imread(x)
-    mask = cv2.imread(z, 0)
-    res = cv2.bitwise_and(img, img, mask = mask)
-    cv2.imwrite(z, res)
-    shutil.copy(z, newpath)
-    
+    if not os.path.isfile(newpathandfile):
+        print("Creating file")
+        try:
+            urllib.request.urlretrieve(y, z)
+        except:
+            print("An error has occured on image " + z)
+        else:
+            img = cv2.imread(x)
+            mask = cv2.imread(z, 0)
+            res = cv2.bitwise_and(img, img, mask = mask)
+            cv2.imwrite(z, res)
+            shutil.copy(z, newpath)
+        
 
     
