@@ -12,6 +12,7 @@ import urllib.request
 import cv2
 import os
 import shutil
+import sys
 
 with open('export.json') as json_file:
     data = json.load(json_file)
@@ -99,7 +100,7 @@ for x, y, z in zip(fileandpath, masklinks, filenames):
             urllib.request.urlretrieve(y, z) # access the url to download the file
         except:
             print("An error has occured on image " + z)
-			break
+            sys.exit(1) #stops the code
         else:
             img = cv2.imread(x)
             mask = cv2.imread(z, 0)
