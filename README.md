@@ -15,7 +15,7 @@ Good understanding of how to interact with json outputs
 
 ## Running and Using the code
 
-The code can be broken down into two seperate sections:
+The code can be broken down into two seperate sections that a performed in series:
 1. masked_image_generator -used to mask the chicken egg images
    * Vector_getter.py
 2. bounding_box_crop_rotate -used to create bounding box and rotate
@@ -34,7 +34,7 @@ and apply them to said images. This code requires some setup:
  If for some reason the code is terminated mid loop, the code can be ran again and it will continue from where it left off.
  
  
-**Outputs:** a folder called masks to be created. This folder contains all of the newly created images in the same filestructure that the data started as
+**Outputs:** a directory called *./masks/* is created. This folder contains all of the newly created images in the same filestructure that the data started as.
 
 **Error Handling**: Due to latency, sometimes the urllib request will fail:
 ```Python
@@ -51,3 +51,13 @@ except:
 ```
 **Notes**: *Due to file permissions issues I encounteder with the urllib library, the root folder containing the script will be used for caching the file as the mask is applied. Do not panic, just delete said files after the script is done.*
 
+### bounding_box_crop_rotate_script
+This code is used to crop the newly masked images based on a min area defined by a bounding box with two parellel normal sides.
+
+This code requires some setup:
+- The script must be in the same root as *./masks/*
+- use only forloop_bounding_box_crop_rotate_script.py
+
+once the code is ran, the function is defined and is ran on all images located in *./masks/*
+
+**Outputs:** Once an image is ran through the code, it is saved in its original file location which preserves the orignial data structure. 
