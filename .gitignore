@@ -114,5 +114,5 @@ dmypy.json
 .pyre/
 
 # Folders to ignore
-.jpg
-.png
+*.jpg
+*.png
