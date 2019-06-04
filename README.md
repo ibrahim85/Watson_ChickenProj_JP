@@ -7,7 +7,7 @@ This repo stores code to take chicken egg images, apply a prelabled mask, and cr
 libraries and packages you'll need that you probably don't already have installed:
 
 ```
-Open CV ( with support for cv2)
+OpenCV (with support for cv2)
 PIL Library
 urllib Library
 Good understanding of how to interact with json outputs
@@ -18,7 +18,7 @@ Good understanding of how to interact with json outputs
 The code can be broken down into two seperate sections that a performed in series:
 1. masked_image_generator -used to mask the chicken egg images
    * Vector_getter.py
-2. bounding_box_crop_rotate -used to create bounding box and rotate
+2. bounding_box_crop_rotate -used to create bounding box and crop
    * forloop_bounding_box_crop_rotate_script.py
 
 
