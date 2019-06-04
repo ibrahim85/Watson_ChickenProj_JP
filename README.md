@@ -39,14 +39,15 @@ and apply them to said images. This code requires some setup:
 **Error Handling**: Due to latency, sometimes the urllib request will fail:
 ```Python
 urllib.request.urlretrieve(y, z)
-````
-To 
+```
+to avoid potential issues, if this happens the code will terminate:
+```Python
+try:
+    urllib.request.urlretrieve(y, z) # access the url to download the file
+except:
+    print("An error has occured on image " + z)
+    sys.exit(1) #stops the code
 
 ```
-Give an example
-```
-
-
-```
-
+**Notes**: *Due to file permissions issues I encounteder with the urllib library, the root folder containing the script will be used for caching the file as the mask is applied. Do not panic, just delete said files after the script is done.*
 
