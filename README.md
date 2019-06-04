@@ -56,8 +56,18 @@ This code is used to crop the newly masked images based on a min area defined by
 
 This code requires some setup:
 - The script must be in the same root as *./masks/*
-- use only forloop_bounding_box_crop_rotate_script.py
+- use only *forloop_bounding_box_crop_rotate_script.py*
 
 once the code is ran, the function is defined and is ran on all images located in *./masks/*
 
-**Outputs:** Once an image is ran through the code, it is saved in its original file location which preserves the orignial data structure. 
+**Outputs:** Once an image is ran through the code, it is saved in its original file location which preserves the orignial data structure.
+
+**Helpful Stuff**: the other script in this section is *bounding_box_crop_rotate_script.py*. This script was originally written to test the many tools found in the open cv library and to get an understanding of how the code works. It contains a few lines at the end of it that allows you to view the bounding rectangle of a specific image in a new window called *contours* which will close immeditaly upon a key press:
+
+```Python
+img2 = cv2.resize(img, (1438, 1080))
+cv2.imshow("contours", img2)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+*Note that the script will not continue to run until the window is closed. Attempting to run another script and/or not closing the window will cause the python console to crash*
