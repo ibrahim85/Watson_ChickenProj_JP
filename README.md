@@ -4,7 +4,7 @@ This repo stores code to take chicken egg images, apply a prelabled mask, and cr
 
 ## Prerequisites
 
-libraries and packages you'll need that you probably don't already have installed:
+Libraries and packages you'll need that you probably don't already have installed:
 
 ```
 OpenCV (with support for cv2)
@@ -34,7 +34,7 @@ and apply them to said images. This code requires some setup:
  If for some reason the code is terminated mid loop, the code can be ran again and it will continue from where it left off.
  
  
-**Outputs:** a directory called *./masks/* is created. This folder contains all of the newly created images in the same filestructure that the data started as.
+**Outputs:** A directory called *./masks/* is created. This folder contains all of the newly created images in the same filestructure that the data started as.
 
 **Error Handling**: Due to latency, sometimes the urllib request will fail:
 ```Python
@@ -62,7 +62,7 @@ once the code is ran, the function is defined and is ran on all images located i
 
 **Outputs:** Once an image is ran through the code, it is saved in its original file location which preserves the orignial data structure.
 
-**Helpful Stuff**: the other script in this section is *bounding_box_crop_rotate_script.py*. This script was originally written to test the many tools found in the open cv library and to get an understanding of how the code works. It contains a few lines at the end of it that allows you to view the bounding rectangle of a specific image in a new window called *contours* which will close immeditaly upon a key press:
+**Helpful Stuff**: The other script in this section is *bounding_box_crop_rotate_script.py*. This script was originally written to test the many tools found in the open cv library and to get an understanding of how the code works. It contains a few lines at the end of it that allows you to view the bounding rectangle of a specific image in a new window called *contours* which will close immeditaly upon a key press:
 
 ```Python
 img2 = cv2.resize(img, (1438, 1080))
