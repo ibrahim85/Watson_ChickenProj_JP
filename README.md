@@ -1,6 +1,10 @@
 # Watson_ChickenProj_JP
 
-This repo stores code to take chicken egg images, apply a prelabled mask, and crop them based on a bounding box formed by a min area rectangle with two normal sides.
+This repo stores code to take chicken egg images, apply a prelabled mask, and crop them based on a bounding box formed by a min area rectangle with two normal sides. This is found in folder Egg_Cropping.
+
+This repo also stores the code for training ML models using fastai to predict the sex of chicken eggs before they hatch.
+
+# Egg Cropping
 
 ## Prerequisites
 
