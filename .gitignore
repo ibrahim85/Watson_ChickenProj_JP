@@ -118,4 +118,4 @@ dmypy.json
 *.png
 
 # dont ignore this stuff
-!*/EGG_ML/fastai/jupyter/*
+!/EGG_ML/fastai/jupyter/*
