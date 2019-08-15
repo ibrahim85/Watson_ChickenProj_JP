@@ -116,3 +116,6 @@ dmypy.json
 # Folders to ignore
 *.jpg
 *.png
+
+# dont ignore this stuff
+!*/EGG_ML/fastai/jupyter/*
